@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+  
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="<%=bot.user.avatarURL%>">
+  <meta name="author" content="<%=bot.user.tag%>">
+  <meta name="keywords" content="Renox">
+  <meta property="og:site_name" value="<%=bot.user.username%>">
+  <meta property="og:image" content="<%=bot.user.avatarURL%>">
+  <meta property="og:description" content="Gelişmiş Türçe Discord Botu">
+  <meta name="description" content="Gelişmiş Türkçe Discord Botu">
+  <meta name="theme-color" content="#0070fa">
+  <meta charset="UTF-8">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.16/cr-1.4.1/r-2.2.0/datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js" integrity="sha256-zG8v+NWiZxmjNi+CvUYnZwKtHzFtdO8cAKUIdB8+U9I="
+    crossorigin="anonymous"></script>
+  
+<link rel="stylesheet" href="/css/main.css" />  
+	<link rel='icon' href='<%=bot.avatarURL%>'>
+	<title><%=bot.user.username%> Web Paneli</title>
+</head>
+  <style>
+$activeColor: #27ae60; //green
+$darkenColor: darken($activeColor, 20%);
+/* $background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/13460/dark_wall.png'); */
+$background: #3498db;
+
+/* .slideOne */
+.slideOne {
+  width: 50px;
+  height: 10px;
+  background: #333;
+  margin: 20px auto;
+  position: relative;
+  border-radius: 50px;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+  label {
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    cursor: pointer;
+    background: #fcfff4;
+    background: linear-gradient(to bottom, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    border-radius: 50px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+  }
+  input[type=checkbox] {
+    visibility: hidden;
+    &:checked + label {
+      left: 37px;
+    }  
+  }
+}
+
+  </style>
+  <body>
+    
+    <nav style="background-color:#2C2F33" class="navbar navbar-expand-lg navbar-dark">
+     <div class="container">
+      <a class="navbar-brand" href=""><img src="https://cdn.discordapp.com/avatars/<%=bot.user.id%>/<%=bot.user.avatar%>.png" width="30" height="30"
+          class="d-inline-block align-top rounded-circle" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor02">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"><a href="/anasayfa" class="nav-link">Ana Sayfa</a></li>     
+        <li class="nav-item"><a href="/istatistikler" class="nav-link">İstatistikler</a></li>
+        <li class="nav-item"><a href="/botuekle" class="nav-link">Botu Sunucuna Ekle</a></li>
+      </ul>
+
+      <ul class="navbar-nav">
+          <%if(!user) {%>
+          <li class="nav-item"><a href="/giris" class="nav-link">Giriş Yap</a></li>
+            <%}%>
+       <%if(user) {%>
+            <li class="dropdown">
+            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="https://cdn.discordapp.com/avatars/<%=user.id%>/<%=user.avatar%>.png?size=32" width="25" height="25" class="d-inline-block align-middle rounded-circle" alt=""> <%=user.username%>
+           </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="background-color:#2C2F33">
+              <a class="dropdown-item" href="/kullaniciler/<%=user.id%>/yonet">Seviye Kartını Düzenle</a>
+              <a class="dropdown-item activex" href="/panel" style="color:#ffffff"><i aria-hidden="true"></i>Sunucularım <br>(Şuan <b><%=sunucu.name%></b> adlı sunucu seçili.)</a>
+              <% if(bot.ayarlar.sahip.includes(user.id)) { %>
+						  <a class="dropdown-item" href="/yonetici" style="color:#ffffff"><i aria-hidden="true"></i>Yönetici Paneli</a>
+				      <% } %>
+              <a class="dropdown-item" href="/cikis" style="color:#ffffff"><i aria-hidden="true"></i>Çıkış Yap</a>
+              
+              
+              
+        </div>
+          </li>
+      <%}%>
+        </ul>
+      </div>
+  </nav>
+      
+  <div class="container">

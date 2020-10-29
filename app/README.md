@@ -1,0 +1,1 @@
+config i düzelt ve panel.js
